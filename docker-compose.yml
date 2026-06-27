@@ -2,7 +2,7 @@ services:
 
   db:
 
-    image: postgres:18
+    image: postgres:16
 
     container_name: hyrule-db
 
@@ -18,14 +18,13 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME} -d hyrule"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d hyrule"]
       interval: 10s
       timeout: 5s
       retries: 5
 
     networks:
       - hyrule-network
-
 
   api:
 
@@ -52,12 +51,8 @@ services:
     networks:
       - hyrule-network
 
-
 volumes:
-
   postgres_data:
 
-
 networks:
-
   hyrule-network:
